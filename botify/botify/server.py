@@ -141,7 +141,10 @@ class NextTrack(Resource):
         else:
             recommender = random_recommender
 
-        recommendation = recommender.recommend_next(user, args.track, args.time)
+        try:
+            recommendation = recommender.recommend_next(user, args.track, args.time)
+        except Exception:
+            recommendation = random_recommender.recommend_next(user, args.track, args.time)
 
         data_logger.log(
             "next",
